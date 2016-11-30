@@ -46,7 +46,8 @@ void playMusic(char c) {
 
   readLyric(&nowShowLyric.timeSec, nowShowLyric.lyric);
   readLyric(&nextShowLyric.timeSec, nextShowLyric.lyric);
-  sprintln(nowShowLyric.lyric);
+//  Serial.println(nowShowLyric.lyric);
+  mySerial.println(nowShowLyric.lyric);
   
   isPlaying = true;
   curTimeSec = 0;
@@ -58,7 +59,6 @@ void readLyric(int *timeSec, char *str) {
   char c;
   int i = 0;
 
-  sprintln("");
   // 가사를 한 줄 읽어온다.
   while (lyricsFile.available()) {
     c = lyricsFile.read();
@@ -142,18 +142,9 @@ void loop() {
       nowShowLyric = nextShowLyric;
       
       readLyric(&nextShowLyric.timeSec, nextShowLyric.lyric);
-      Serial.println(nowShowLyric.lyric);
+      mySerial.println(nowShowLyric.lyric);
+//      Serial.println(nowShowLyric.lyric);
     }
   }
-}
-
-void sprint(char *s) {
-  Serial.print(s);
-  Serial.flush();
-}
-
-void sprintln(char *s) {
-  Serial.println(s);
-  Serial.flush();
 }
 
