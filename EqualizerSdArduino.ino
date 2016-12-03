@@ -3,6 +3,10 @@
 #include <SD.h>
 #include <SoftwareSerial.h>
 
+int led1 = 7;
+int led2 = 8;
+int led3 = 9;
+
 struct Lyric {
   int timeSec;
 
@@ -38,6 +42,9 @@ void playMusic(char c) {
   str[0] = c + 1;
   str[1] = '\0';
   lyricsFile = SD.open(str);
+  if (lyricsFile == NULL) {
+    return;
+  }
 
   // 가사 파일은 파일 이름이 '1e'이다.
   str[1] = 'e';
@@ -119,16 +126,6 @@ void loop() {
         command = 0;
         inputStatus = 0;
         isPlaying = false;
-      }
-      // next
-      else if (c == 'c') {
-        command = 0;
-        inputStatus = 0;
-      }
-      // prev
-      else if (c == 'd') {
-        command = 0;
-        inputStatus = 0;
       }
     }
   }
